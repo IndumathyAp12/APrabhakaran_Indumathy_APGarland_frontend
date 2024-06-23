@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useGarlandContext } from '../contexts/GarlandContext';
 import GarlandList from '../components/GarlandList';
 
 const Garlands = () => {
-  const [garlands, setGarlands] = useState([]);
+  const { state, fetchGarlands } = useGarlandContext();
 
   useEffect(() => {
-    axios.get('/api/garlands')
-      .then(response => setGarlands(response.data))
-      .catch(error => console.error(error));
+    fetchGarlands();
   }, []);
+
+  const { garlands, loading, error } = state;
 
   return (
     <div>
       <h1>Garlands</h1>
-      <GarlandList garlands={garlands} />
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {!loading && !error && <GarlandList garlands={garlands} />}
     </div>
   );
 };
