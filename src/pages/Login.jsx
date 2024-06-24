@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
+
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -29,6 +30,9 @@ const Login = () => {
       <button type="submit">Login</button>
       {state.loading && <p>Loading...</p>}
       {state.error && <p>Error: {state.error}</p>}
+      <div>
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </div>
     </form>
   );
 };

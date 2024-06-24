@@ -13,7 +13,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
-import axios from 'axios';
+import ForgotPassword from './components/ForgotPassowrd';
+
 
 const App = () => {
   return (
@@ -25,10 +26,11 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/garlands" element={<Garlands />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/cart" element={<Cart />} />
             </Routes>
           </ErrorBoundary>
