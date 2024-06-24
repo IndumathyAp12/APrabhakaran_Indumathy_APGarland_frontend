@@ -14,6 +14,7 @@ import { CartProvider } from './contexts/CartContext';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import axios from 'axios';
+
 const App = () => {
   return (
     <AuthProvider>

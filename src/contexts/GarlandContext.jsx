@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useReducer, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 const GarlandContext = createContext();
@@ -22,20 +22,22 @@ const garlandReducer = (state, action) => {
   }
 };
 
-
 export const GarlandProvider = ({ children }) => {
   const [state, dispatch] = useReducer(garlandReducer, initialState);
 
   const fetchGarlands = async () => {
     dispatch({ type: 'FETCH_START' });
     try {
-      const response = await axios.get('/api/garlands');
-      console.log(response.data); // Log the response data
+      const response = await axios.get('https://aprabhakaran-indumathy-apgarland-backend.onrender.com/api/garlands');
       dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
     } catch (error) {
       dispatch({ type: 'FETCH_ERROR', payload: error.message });
     }
   };
+
+  useEffect(() => {
+    fetchGarlands();
+  }, []);
 
   return (
     <GarlandContext.Provider value={{ state, fetchGarlands }}>
@@ -43,6 +45,5 @@ export const GarlandProvider = ({ children }) => {
     </GarlandContext.Provider>
   );
 };
-
 
 export const useGarlandContext = () => useContext(GarlandContext);
