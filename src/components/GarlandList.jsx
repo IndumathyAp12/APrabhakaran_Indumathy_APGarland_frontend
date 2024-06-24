@@ -7,7 +7,7 @@ const GarlandList = ({ garlands }) => {
         <div key={garland._id} className="garland-item">
           <h2>{garland.name}</h2>
           <p>{garland.description}</p>
-          <p>{garland.price}</p>
+          <p>${garland.price}</p>
           <img src={garland.imageUrl} alt={garland.name} />
         </div>
       ))}

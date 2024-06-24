@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useGarlandContext } from '../contexts/GarlandContext';
+import GarlandList from '../components/GarlandList';
+import SearchBar from '../components/SearchBar';
 
 const Home = () => {
+  const { state } = useGarlandContext();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredGarlands = state.garlands.filter(garland =>
+    garland.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div>
+    <div className="container">
       <h1>Welcome to Garland Shop</h1>
-      <p>Explore our beautiful collection of garlands.</p>
+      <SearchBar value={searchQuery} onChange={setSearchQuery} />
+      <GarlandList garlands={filteredGarlands} />
     </div>
   );
 };
