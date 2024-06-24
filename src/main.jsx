@@ -1,20 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { BrowserRouter as Router } from 'react-router-dom';
-import ErrorBoundary from './components/ErrorBoundary';
-
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom'; // Ensure you only import BrowserRouter once
+import App from './App';
+import './App.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <App />
+  </Router>,
   document.getElementById('root')
 );
-
