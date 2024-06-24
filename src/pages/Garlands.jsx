@@ -1,3 +1,4 @@
+// src/pages/Garlands.jsx
 import React, { useState, useEffect } from 'react';
 import { useGarlandContext } from '../contexts/GarlandContext';
 import GarlandList from '../components/GarlandList';
@@ -13,6 +14,10 @@ const Garlands = () => {
   }, []);
 
   const { garlands, loading, error } = state;
+
+  if (!Array.isArray(garlands)) {
+    return <p>Something went wrong: garlands is not an array</p>;
+  }
 
   const filteredGarlands = garlands.filter(garland =>
     garland.name.toLowerCase().includes(searchQuery.toLowerCase())

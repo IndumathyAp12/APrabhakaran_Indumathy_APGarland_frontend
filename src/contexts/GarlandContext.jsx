@@ -11,29 +11,26 @@ const initialState = {
 
 const garlandReducer = (state, action) => {
   switch (action.type) {
+    case 'FETCH_START':
+      return { ...state, loading: true, error: null };
     case 'FETCH_SUCCESS':
-      return {
-        ...state,
-        garlands: action.payload,
-        loading: false,
-      };
+      return { ...state, garlands: Array.isArray(action.payload) ? action.payload : [], loading: false };
     case 'FETCH_ERROR':
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
 };
 
+
 export const GarlandProvider = ({ children }) => {
   const [state, dispatch] = useReducer(garlandReducer, initialState);
 
   const fetchGarlands = async () => {
+    dispatch({ type: 'FETCH_START' });
     try {
       const response = await axios.get('/api/garlands');
+      console.log(response.data); // Log the response data
       dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
     } catch (error) {
       dispatch({ type: 'FETCH_ERROR', payload: error.message });
@@ -47,6 +44,5 @@ export const GarlandProvider = ({ children }) => {
   );
 };
 
-export const useGarlandContext = () => {
-  return useContext(GarlandContext);
-};
+
+export const useGarlandContext = () => useContext(GarlandContext);
