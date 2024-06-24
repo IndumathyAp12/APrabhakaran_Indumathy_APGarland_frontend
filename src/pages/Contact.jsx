@@ -15,7 +15,7 @@ const Contact = () => {
 
     try {
       // Send the form data to the backend (to the endpoint to handle )
-      await axios.post('https://aprabhakaran-indumathy-apgarland-backend.onrender.com/api/contact', {
+      await axios.post('https://aprabhakaran-indumathy-apgarland-backend.onrender.com/users', {
         name,
         email,
         message
