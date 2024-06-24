@@ -7,12 +7,13 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Cart from './pages/Cart'; 
 import { GarlandProvider } from './contexts/GarlandContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
-
+import axios from 'axios';
 const App = () => {
   return (
     <AuthProvider>
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/cart" element={<Cart />} />
             </Routes>
           </ErrorBoundary>
           <Footer />
