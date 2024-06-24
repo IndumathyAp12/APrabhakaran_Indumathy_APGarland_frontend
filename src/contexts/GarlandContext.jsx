@@ -28,7 +28,7 @@ export const GarlandProvider = ({ children }) => {
   const fetchGarlands = async () => {
     dispatch({ type: 'FETCH_START' });
     try {
-      const response = await axios.get('https://aprabhakaran-indumathy-apgarland-backend.onrender.com/api/garlands');
+      const response = await axios.get('https://aprabhakaran-indumathy-apgarland-backend.onrender.com/products');
       dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
     } catch (error) {
       dispatch({ type: 'FETCH_ERROR', payload: error.message });
