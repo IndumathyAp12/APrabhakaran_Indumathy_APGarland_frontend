@@ -1,36 +1,40 @@
-// src/pages/Garlands.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useGarlandContext } from '../contexts/GarlandContext';
-import GarlandList from '../components/GarlandList';
-import GarlandForm from '../components/GarlandForm';
 import SearchBar from '../components/SearchBar';
+import { useCartContext } from '../contexts/CartContext';
 
 const Garlands = () => {
   const { state, fetchGarlands } = useGarlandContext();
-  const [searchQuery, setSearchQuery] = useState('');
+  const { addToCart } = useCartContext();
+  const { garlands, loading, error } = state;
 
   useEffect(() => {
     fetchGarlands();
   }, []);
 
-  const { garlands, loading, error } = state;
-
-  if (!Array.isArray(garlands)) {
-    return <p>Something went wrong: garlands is not an array</p>;
-  }
-
-  const filteredGarlands = garlands.filter(garland =>
-    garland.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleAddToCart = (garland) => {
+    addToCart(garland);
+    };
 
   return (
     <div className="container">
       <h1>Garlands</h1>
-      <SearchBar value={searchQuery} onChange={setSearchQuery} />
+      <SearchBar />
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {!loading && !error && <GarlandList garlands={filteredGarlands} />}
-      <GarlandForm />
+      {!loading && !error && (
+        <div className="garland-list">
+          {garlands.map(garland => (
+            <div key={garland._id} className="garland-item">
+              <h2>{garland.name}</h2>
+              <p>{garland.description}</p>
+              <p>${garland.price}</p>
+              <img src={garland.imageUrl} alt={garland.name} />
+              <button onClick={() => handleAddToCart(garland)}>Add to Cart</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
