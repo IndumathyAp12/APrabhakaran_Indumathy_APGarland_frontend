@@ -13,6 +13,7 @@ const Home = () => {
 
   return (
     <div className="container">
+      <img src="/My first design.png" alt="Garland Shop Logo" style={{ width: '200px', marginBottom: '20px' }} />
       <h1>Welcome to Garland Shop</h1>
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
       <GarlandList garlands={filteredGarlands} />
