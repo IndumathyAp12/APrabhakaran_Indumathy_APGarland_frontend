@@ -4,7 +4,7 @@ const GarlandList = ({ garlands }) => {
   return (
     <div>
       {garlands.map(garland => (
-        <div key={garland._id}>
+        <div key={garland._id} className="garland-item">
           <h2>{garland.name}</h2>
           <p>{garland.description}</p>
           <p>{garland.price}</p>
