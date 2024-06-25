@@ -30,14 +30,16 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     dispatch({ type: 'LOGIN_START' });
     try {
-      const response = await axios.post('/api/users/login', { username, password });
-      dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
+      const response = await axios.post('/users/login', { email: username, password }); 
+      localStorage.setItem('token', response.data.token);
+      dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.user });
     } catch (error) {
-      dispatch({ type: 'LOGIN_FAILURE', payload: error.message });
+      dispatch({ type: 'LOGIN_FAILURE', payload: error.response?.data?.message || 'Login failed' });
     }
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     dispatch({ type: 'LOGOUT' });
   };
 
@@ -49,5 +51,5 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuthContext = () => {
-  return useContext(AuthContext);
+   useContext(AuthContext);
 };

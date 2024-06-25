@@ -25,7 +25,7 @@ const ChangePassword = () => {
 
         try {
             // Make POST request to backend API to change password
-            const response = await axios.post('/api/change-password', {
+            const response = await axios.post('/users/change-password', {
                 currentPassword,
                 newPassword,
             });

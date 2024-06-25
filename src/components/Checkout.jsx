@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useCartContext } from '../contexts/CartContext';
+import orderService from '../services/orderService';
+import CartItem from './CartItem';
 
 const Checkout = () => {
-  const { cart } = useCartContext();
+  const { state: { items: cart }, clearCart } = useCartContext();
   const [paymentMethod, setPaymentMethod] = useState('creditCard');
   const [shippingMethod, setShippingMethod] = useState('standard');
 
@@ -14,9 +16,24 @@ const Checkout = () => {
     setShippingMethod(e.target.value);
   };
 
-  const handleCheckout = () => {
-    // Implement your checkout logic here, e.g., submit order, clear cart, etc.
-    console.log('Implement checkout logic');
+  const handleCheckout = async () => {
+    try {
+      const orderDetails = {
+        items: cart,
+        paymentMethod,
+        shippingMethod,
+        total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+      };
+
+      const response = await orderService.createOrder(orderDetails);
+
+      console.log('Order placed successfully:', response);
+      clearCart();
+      alert('Order placed successfully!');
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Failed to place order. Please try again.');
+    }
   };
 
   return (
@@ -41,7 +58,7 @@ const Checkout = () => {
       <div className="checkout-cart">
         <h3>Order Summary</h3>
         {cart.map(item => (
-          <CartItem key={item.id} item={item} />
+          <CartItem key={item._id} item={item} />
         ))}
         <button onClick={handleCheckout}>Place Order</button>
       </div>

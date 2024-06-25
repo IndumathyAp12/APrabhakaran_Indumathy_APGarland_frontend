@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div className="container">
       <h1>About Us</h1>
-      <p>Garland Shop is dedicated to providing the finest garlands for every occasion.</p>
+      <p>Our Garland Shop is dedicated to provide the finest garlands for every occasion.</p>
     </div>
   );
 };
