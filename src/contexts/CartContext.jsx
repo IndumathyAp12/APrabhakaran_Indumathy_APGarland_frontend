@@ -12,6 +12,13 @@ const cartReducer = (state, action) => {
       return { ...state, items: [...state.items, action.payload] };
     case 'REMOVE_FROM_CART':
       return { ...state, items: state.items.filter(item => item._id !== action.payload) };
+    case 'UPDATE_QUANTITY':
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item._id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
+        ),
+      };
     case 'CLEAR_CART':
       return { ...state, items: [] };
     default:
@@ -30,12 +37,16 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: id });
   };
 
+  const updateCartItemQuantity = (id, quantity) => {
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
+  };
+
   const clearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
   };
 
   return (
-    <CartContext.Provider value={{ state, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ state, addToCart, removeFromCart, updateCartItemQuantity, clearCart }}>
       {children}
     </CartContext.Provider>
   );

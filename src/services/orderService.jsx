@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://aprabhakaran-indumathy-apgarland-backend.onrender.com'; 
+const API_URL = 'http://localhost:5000/'; 
 
 const orderService = {
   getAllOrders: async () => {

@@ -9,6 +9,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
 import UserPage from './pages/UserPage';
+import AdminPage from './pages/AdminPage';
 import { GarlandProvider } from './contexts/GarlandContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
@@ -33,7 +34,8 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/user/*" element={<UserPage />} />
+              <Route path="/userpage" element={<UserPage />} />
+              <Route path="/adminpage" element={<AdminPage />} />
               <Route path="/profile" element={<ProfileDetails />} />
             </Routes>
           </ErrorBoundary>
