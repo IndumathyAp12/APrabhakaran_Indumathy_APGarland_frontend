@@ -7,14 +7,15 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Cart from './pages/Cart'; 
+import Cart from './pages/Cart';
+import UserPage from './pages/UserPage';
 import { GarlandProvider } from './contexts/GarlandContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
-import ForgotPassword from './components/ForgotPassowrd';
-
+import ForgotPassword from './pages/ForgotPassword';
+import ProfileDetails from './pages/ProfileDetails';
 
 const App = () => {
   return (
@@ -32,6 +33,8 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/user/*" element={<UserPage />} />
+              <Route path="/profile" element={<ProfileDetails />} />
             </Routes>
           </ErrorBoundary>
           <Footer />

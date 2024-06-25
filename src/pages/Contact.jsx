@@ -1,66 +1,74 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../Axios';
 
 const Contact = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
-
     try {
-      // Send the form data to the backend (to the endpoint to handle )
-      await axios.post('https://aprabhakaran-indumathy-apgarland-backend.onrender.com/users', {
-        name,
-        email,
-        message
+      await axios.post('/api/contact', formData);
+      setSuccessMessage('Your message has been sent successfully!');
+      setErrorMessage('');
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
       });
-
-      // If successful, set submitted state to true
-      setSubmitted(true);
-
-      // Clear the form fields
-      setName('');
-      setEmail('');
-      setMessage('');
-      setError('');
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setError('Failed to send message. Please try again later.');
-    } finally {
-      setSubmitting(false);
+      setErrorMessage('Error sending message, please try again later.');
+      setSuccessMessage('');
     }
   };
 
   return (
     <div className="container">
       <h1>Contact Us</h1>
-      {submitted ? (
-        <p>Thank you for your message! We will get back to you soon.</p>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Name:</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-          </div>
-          <div>
-            <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-          <div>
-            <label>Message:</label>
-            <textarea value={message} onChange={(e) => setMessage(e.target.value)} required></textarea>
-          </div>
-          <button type="submit" disabled={submitting}>
-            {submitting ? 'Sending...' : 'Send'}
-          </button>
-        </form>
-      )}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Message:</label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit">Send</button>
+      </form>
+      {successMessage && <p>{successMessage}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 };

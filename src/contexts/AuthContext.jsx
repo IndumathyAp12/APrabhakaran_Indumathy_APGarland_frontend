@@ -1,5 +1,5 @@
-import React, { createContext, useReducer, useContext } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, useReducer } from 'react';
+import axios from '../Axios';
 
 const AuthContext = createContext();
 
@@ -14,8 +14,8 @@ const authReducer = (state, action) => {
     case 'LOGIN_START':
       return { ...state, loading: true, error: null };
     case 'LOGIN_SUCCESS':
-      return { ...state, user: action.payload, loading: false };
-    case 'LOGIN_ERROR':
+      return { ...state, loading: false, user: action.payload };
+    case 'LOGIN_FAILURE':
       return { ...state, loading: false, error: action.payload };
     case 'LOGOUT':
       return { ...state, user: null };
@@ -31,15 +31,13 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'LOGIN_START' });
     try {
       const response = await axios.post('/api/users/login', { username, password });
-      localStorage.setItem('token', response.data.token);
       dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
     } catch (error) {
-      dispatch({ type: 'LOGIN_ERROR', payload: error.message });
+      dispatch({ type: 'LOGIN_FAILURE', payload: error.message });
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
     dispatch({ type: 'LOGOUT' });
   };
 
@@ -50,4 +48,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuthContext = () => useContext(AuthContext);
+export const useAuthContext = () => {
+  return useContext(AuthContext);
+};

@@ -1,14 +1,14 @@
 import React from 'react';
 
-const GarlandList = ({ garlands }) => {
+const GarlandList = ({ products = [] }) => {  
   return (
     <div>
-      {garlands.map(garland => (
-        <div key={garland._id} className="garland-item">
-          <h2>{garland.name}</h2>
-          <p>{garland.description}</p>
-          <p>${garland.price}</p>
-          <img src={garland.imageUrl} alt={garland.name} />
+      {products.map(product => (  
+        <div key={product._id} className="garland-product">
+          <h2>{product.name}</h2>
+          <p>{product.description}</p>
+          <p>${product.price}</p>
+          <img src={product.imageUrl} alt={product.name} />
         </div>
       ))}
     </div>

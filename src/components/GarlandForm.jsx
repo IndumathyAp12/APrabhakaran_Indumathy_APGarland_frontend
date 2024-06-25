@@ -12,7 +12,7 @@ const GarlandForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/garlands', { name, description, price, imageUrl });
+      await axios.post('/products', { name, description, price, imageUrl });
       fetchGarlands(); 
       setName('');
       setDescription('');
