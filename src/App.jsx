@@ -18,14 +18,22 @@ import ErrorBoundary from './components/ErrorBoundary';
 import ForgotPassword from './pages/ForgotPassword';
 import ProfileDetails from './pages/ProfileDetails';
 
+// Main App component
 const App = () => {
   return (
+    // Provide authentication context to the application
     <AuthProvider>
+      {/* Provide garland data context to the application */}
       <GarlandProvider>
+        {/* Provide cart context to the application */}
         <CartProvider>
+          {/* Navbar component to be displayed on every page */}
           <Navbar />
+          {/* ErrorBoundary to catch and display errors in the child components */}
           <ErrorBoundary>
+            {/* Define routes for the application */}
             <Routes>
+              {/* Define individual routes and their corresponding components */}
               <Route path="/" element={<Home />} />
               <Route path="/garlands" element={<Garlands />} />
               <Route path="/about" element={<About />} />
@@ -39,6 +47,7 @@ const App = () => {
               <Route path="/profile" element={<ProfileDetails />} />
             </Routes>
           </ErrorBoundary>
+          {/* Footer component to be displayed on every page */}
           <Footer />
         </CartProvider>
       </GarlandProvider>

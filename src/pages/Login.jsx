@@ -3,13 +3,14 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import '../App.css';
 
-
+// Login component
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { state, login } = useAuthContext();
-  const navigate = useNavigate();
+  const { state, login } = useAuthContext();// Destructure state and login function from AuthContext
+  const navigate = useNavigate(); // useNavigate hook for programmatic navigation
   
+    // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -32,6 +33,7 @@ const Login = () => {
     }
   };
 
+  // Render the component
   return (
     <div>
       <h2>Login</h2>

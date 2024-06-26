@@ -19,7 +19,7 @@ const ProductPage = () => {
         throw new Error('Failed to fetch products');
       }
       const data = await response.json();
-      setProducts(data); // Assuming data is an array of products
+      setProducts(data); 
     } catch (error) {
       console.error('Error fetching products:', error);
         }

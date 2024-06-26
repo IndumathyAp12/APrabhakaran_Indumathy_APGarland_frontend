@@ -3,19 +3,21 @@ import { useGarlandContext } from '../contexts/GarlandContext';
 import SearchBar from '../components/SearchBar';
 import { useCartContext } from '../contexts/CartContext';
 
+// Garlands component
 const Garlands = () => {
+   // Destructure necessary values and functions from GarlandContext and CartContext
   const { state, fetchGarlands } = useGarlandContext();
   const { addToCart } = useCartContext();
   const { garlands, loading, error } = state;
   const [quantity, setQuantity] = useState(1);
-  const [searchQuery, setSearchQuery] = useState(''); 
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query input
 
   useEffect(() => {
-    fetchGarlands();
+    fetchGarlands();// Fetch garlands when component mounts
   }, []);
 
   const handleAddToCart = (product) => {
-    addToCart({ ...product, quantity });
+    addToCart({ ...product, quantity }); // Add product to cart with specified quantity
     setQuantity(1);
   };
 
@@ -24,6 +26,7 @@ const Garlands = () => {
     garland.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+    // Render the component
   return (
     <div className="container">
       <h1>Garlands</h1>
