@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://aprabhakaran-indumathy-apgarland-backend.onrender.com/'; 
+const API_URL = 'https://aprabhakaran-indumathy-apgarland-backend.onrender.com'; 
 
 const userService = {
   getAllUsers: async () => {

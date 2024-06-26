@@ -13,12 +13,14 @@ const Contact = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setSuccessMessage('');
+    setErrorMessage('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/contact', formData);
+      await axios.post('/api/contact', formData);
       setSuccessMessage('Your message has been sent successfully!');
       setErrorMessage('');
       setFormData({
@@ -28,6 +30,7 @@ const Contact = () => {
       });
     } catch (error) {
       setErrorMessage('Error sending message, please try again later.');
+      console.error('Error sending message:', error);
       setSuccessMessage('');
     }
   };
@@ -37,8 +40,9 @@ const Contact = () => {
       <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Name:</label>
+          <label htmlFor="name">Name:</label>
           <input
+            id="name"
             type="text"
             name="name"
             value={formData.name}
@@ -47,8 +51,9 @@ const Contact = () => {
           />
         </div>
         <div>
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input
+            id="email"
             type="email"
             name="email"
             value={formData.email}
@@ -57,8 +62,9 @@ const Contact = () => {
           />
         </div>
         <div>
-          <label>Message:</label>
+          <label htmlFor="message">Message:</label>
           <textarea
+            id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
@@ -67,8 +73,16 @@ const Contact = () => {
         </div>
         <button type="submit">Send</button>
       </form>
-      {successMessage && <p>{successMessage}</p>}
-      {errorMessage && <p>{errorMessage}</p>}
+      {successMessage && (
+        <p aria-live="polite" style={{ color: 'green' }}>
+          {successMessage}
+        </p>
+      )}
+      {errorMessage && (
+        <p aria-live="polite" style={{ color: 'red' }}>
+          {errorMessage}
+        </p>
+      )}
     </div>
   );
 };
