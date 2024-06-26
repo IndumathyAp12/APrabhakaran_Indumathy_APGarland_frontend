@@ -9,7 +9,7 @@ const SearchBar = ({ value, onChange }) => {
         type="text"
         placeholder="Search..."
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value)} 
         style={{ flex: 1, padding: '0.5rem', borderRadius: '5px 0 0 5px', border: '1px solid #ddd' }}
       />
       <div style={{ padding: '0.5rem', backgroundColor: '#ddd', borderRadius: '0 5px 5px 0' }}>

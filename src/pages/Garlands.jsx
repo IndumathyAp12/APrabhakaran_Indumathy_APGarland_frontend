@@ -8,6 +8,7 @@ const Garlands = () => {
   const { addToCart } = useCartContext();
   const { garlands, loading, error } = state;
   const [quantity, setQuantity] = useState(1);
+  const [searchQuery, setSearchQuery] = useState(''); 
 
   useEffect(() => {
     fetchGarlands();
@@ -18,15 +19,21 @@ const Garlands = () => {
     setQuantity(1);
   };
 
+  // Filtered garlands based on search query
+  const filteredGarlands = garlands.filter(garland =>
+    garland.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="container">
       <h1>Garlands</h1>
-      <SearchBar />
+      {/* Pass value and onChange props to SearchBar */}
+      <SearchBar value={searchQuery} onChange={setSearchQuery} />
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <div className="garland-list">
-          {garlands.map(product => (
+          {filteredGarlands.map(product => (
             <div key={product._id} className="garland-item">
               <h2>{product.name}</h2>
               <p>{product.description}</p>
